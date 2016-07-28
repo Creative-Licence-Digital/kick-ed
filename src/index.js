@@ -1,3 +1,4 @@
-import * as uploadRouter from './upload'
+import uploadRouter from './upload'
+import syncRouter from './sync'
 
-export { uploadRouter };
+export { uploadRouter, syncRouter };

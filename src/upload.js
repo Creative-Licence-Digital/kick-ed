@@ -26,7 +26,7 @@ const storage = s3({
 
 const upload  = multer({ storage })
 
-export const applyTo = (app) => {
+export default (app) => {
   app.post("/api/content/upload", upload.single('file'), (req, res, next) => {
     res.send({ url: req.file.s3.Location });
   });
