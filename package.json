@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "multer": "^1.1.0",
-    "multer-storage-s3": "^1.1.1"
+    "multer-storage-s3": "^1.1.1",
+    "sequelize": "^3.23.6"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
