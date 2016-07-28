@@ -2,7 +2,7 @@
   "name": "kick-ed",
   "version": "1.0.0",
   "description": "Content Crowdsourcing for the Ed Platform ",
-  "main": "build/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "babel src -d lib",
     "postinstall": "npm run build",
