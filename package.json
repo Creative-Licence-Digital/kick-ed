@@ -5,8 +5,13 @@
   "main": "build/index.js",
   "scripts": {
     "compile": "babel src -d lib",
-    "postinstall": "npm run compile",
+    "postinstall": "postinstall-build lib 'npm run compile'",
     "start": "node ./lib/index.js"
+  },
+  "dependencies": {
+    "multer": "^1.1.0",
+    "multer-storage-s3": "^1.1.1",
+    "postinstall-build": "0.2.x"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
@@ -16,9 +21,5 @@
     "flow-bin": "^0.28.0"
   },
   "author": "Mathieu Guillout <guillout.mathieu@gmail.com>",
-  "license": "ISC",
-  "dependencies": {
-    "multer": "^1.1.0",
-    "multer-storage-s3": "^1.1.1"
-  }
+  "license": "ISC"
 }
