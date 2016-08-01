@@ -5,6 +5,7 @@ export default (sequelize, DataTypes) => {
       primaryKey: true
     },
     user: DataTypes.STRING,
+    account: DataTypes.STRING,
     lesson: DataTypes.STRING,
     course: DataTypes.STRING,
     isSubmitted: DataTypes.BOOLEAN,

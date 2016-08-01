@@ -1,4 +1,7 @@
-import uploadRouter from './upload'
-import syncRouter from './sync'
+import uploadRouter from './uploadRouter'
+import syncRouter from './syncRouter'
+import submissions from './submissions'
 
-export { uploadRouter, syncRouter };
+export { uploadRouter, 
+         syncRouter, 
+         submissions };

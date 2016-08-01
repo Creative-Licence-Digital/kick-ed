@@ -5,7 +5,9 @@ export default (app, config) => {
   const models = Models(config);
 
   // Update a User Content Field in the DB (Or creates it if needed)
-  const updateField = (field) => models.UserContentField.upsert(field)
+  const updateField = (field) => {
+    return models.UserContentField.upsert(field)
+  }
 
   // Update User Content in the DB 
   // Updates also all the related fields
@@ -16,12 +18,11 @@ export default (app, config) => {
       f.position = i + 1;
       return f;
     });
-    const updateAllFields = fields.map(updateField);
     delete uc.fields;
     const createUC        = models.UserContent.upsert(uc);
 
     createUC.then(() => {
-
+      const updateAllFields = fields.map(updateField);
       Promise.all(updateAllFields)
              .then(() => resolve())
              .catch(reject);
@@ -53,21 +54,4 @@ export default (app, config) => {
            });
   });
 
-  app.post("/api/content", (req, res) => {
-    const content = req.body("content");
-    res.send({ content: {} });
-  });
-
-  app.get("/api/content", (req, res) => {
-    const course  = req.query["course"];
-    const lesson  = req.query["lesson"];
-    const include = [ models.UserContentField ];
-    var   where   = {};
-    if (course) where.course = course;
-    if (lesson) where.lesson = lesson;
-
-    models.UserContent.findAll({ where, include }).then(elements => {
-      res.send({ elements });
-    });
-  }); 
 }
