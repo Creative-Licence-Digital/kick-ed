@@ -4,9 +4,9 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       primaryKey: true
     },
-    label: DataTypes.STRING,
-    type: DataTypes.STRING,
-    value: DataTypes.STRING,
+    label:    DataTypes.STRING,
+    type:     DataTypes.STRING,
+    value:    DataTypes.STRING,
     position: DataTypes.INTEGER
   });
   return UserContentField;

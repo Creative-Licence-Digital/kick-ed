@@ -4,10 +4,9 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       primaryKey: true
     },
-    user: DataTypes.STRING,
-    account: DataTypes.STRING,
-    lesson: DataTypes.STRING,
-    course: DataTypes.STRING,
+    user:        DataTypes.STRING,
+    account:     DataTypes.STRING,
+    lesson:      DataTypes.STRING,
     isSubmitted: DataTypes.BOOLEAN,
     requestedAt: DataTypes.DATE,
     submittedAt: DataTypes.DATE
