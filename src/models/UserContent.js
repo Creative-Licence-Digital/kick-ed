@@ -1,5 +1,9 @@
 export default (sequelize, DataTypes) => {
   const UserContent = sequelize.define('UserContent', {
+    uuid: {
+      type: DataTypes.STRING,
+      primaryKey: true
+    },
     user: DataTypes.STRING,
     lesson: DataTypes.STRING,
     course: DataTypes.STRING,

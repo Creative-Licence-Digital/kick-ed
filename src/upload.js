@@ -27,7 +27,9 @@ const storage = s3({
 const upload  = multer({ storage })
 
 export default (app) => {
-  app.post("/api/content/upload", upload.single('file'), (req, res, next) => {
-    res.send({ url: req.file.s3.Location });
-  });
+  app.post("/api/content/upload", 
+           upload.single('file'), 
+           (req, res, next) => {
+             res.send({ url: req.file.s3.Location });
+           });
 }
