@@ -7,9 +7,18 @@ export default (sequelize, DataTypes) => {
     user:        DataTypes.STRING,
     account:     DataTypes.STRING,
     lesson:      DataTypes.STRING,
-    isSubmitted: DataTypes.BOOLEAN,
-    requestedAt: DataTypes.DATE,
-    submittedAt: DataTypes.DATE
+    requestedAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    openedAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    submittedAt: {
+      type: DataTypes.DATE,
+      allowNull: true
+    }
   }, { 
     classMethods: {
       associate: (models) => {

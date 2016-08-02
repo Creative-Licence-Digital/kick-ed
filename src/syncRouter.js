@@ -13,6 +13,14 @@ export default (app, config) => {
   // Updates also all the related fields
   const updateUC = (uc) => new Promise((resolve, reject) => {
     // Link the fields to the user content, and stores their position
+    console.error("UC", uc.openedAt, typeof uc.openedAt);
+    if (uc.openedAt) {
+      uc.openedAt = new Date(uc.openedAt);
+    }
+
+    if (uc.submittedAt) {
+      uc.submittedAt = new Date(uc.submittedAt);
+    }
     const fields = (uc.fields || []).map((f, i) => {
       f.UserContentUuid = uc.uuid; 
       f.position = i + 1;
