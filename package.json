@@ -12,7 +12,8 @@
     "multer": "^1.1.0",
     "multer-storage-s3": "^1.1.1",
     "mysql": "^2.11.1",
-    "sequelize": "^3.23.6"
+    "sequelize": "^3.23.6",
+    "uuid": "^2.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",

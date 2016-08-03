@@ -1,4 +1,5 @@
 import Models from './models'
+import uuid   from 'uuid'
 
 export default (config) => {
   const models  = Models(config);
@@ -29,7 +30,10 @@ export default (config) => {
   });
 
   // Update a User Content Field in the DB (Or creates it if needed)
-   const updateField = (field) => {
+  const updateField = (field) => {
+    if (!field.uuid) {
+      field.uuid = uuid.v4();
+    }
     return models.UserContentField.upsert(field)
   }
 
@@ -43,6 +47,11 @@ export default (config) => {
     if (uc.submittedAt) {
       uc.submittedAt = new Date(uc.submittedAt);
     }
+
+    if (!uc.uuid) {
+      uc.uuid = uuid.v4();
+    }
+
     const fields = (uc.fields || []).map((f, i) => {
       f.UserContentUuid = uc.uuid; 
       f.position = i + 1;
