@@ -7,6 +7,7 @@ export default (sequelize, DataTypes) => {
     user:        DataTypes.STRING,
     account:     DataTypes.STRING,
     lesson:      DataTypes.STRING,
+    instructions: DataTypes.STRING,
     requestedAt: {
       type: DataTypes.DATE,
       allowNull: true
