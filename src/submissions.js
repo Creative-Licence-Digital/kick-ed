@@ -29,6 +29,15 @@ export default (config) => {
     include: [ models.UserContentField ]
   });
 
+  // Remove the fields which do not exist anymore
+  const removeFields = (existingFieldUuids) => models.UserContentField.destroy({
+    where: {
+      uuid: {
+        $notIn: existingFieldUuids
+      }
+    }
+  });
+
   // Update a User Content Field in the DB (Or creates it if needed)
   const updateField = (field) => {
     if (!field.uuid) {
@@ -57,12 +66,18 @@ export default (config) => {
       f.position = i + 1;
       return f;
     });
+
+    const remainingUuids = fields
+      .map(f => f.uuid)
+      .filter(a => a);
+
     delete uc.fields;
     const createUC        = models.UserContent.upsert(uc);
 
     createUC.then(() => {
       const updateAllFields = fields.map(updateField);
       Promise.all(updateAllFields)
+             .then(removeFields(remainingUuids))
              .then(() => resolve())
              .catch(reject);
 
