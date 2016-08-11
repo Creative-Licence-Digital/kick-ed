@@ -4,9 +4,9 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       primaryKey: true
     },
-    user:        DataTypes.STRING,
-    account:     DataTypes.STRING,
-    lesson:      DataTypes.STRING,
+    user:         DataTypes.STRING,
+    account:      DataTypes.STRING,
+    lesson:       DataTypes.STRING,
     instructions: DataTypes.STRING,
     requestedAt: {
       type: DataTypes.DATE,

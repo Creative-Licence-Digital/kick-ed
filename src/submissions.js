@@ -49,15 +49,12 @@ export default (config) => {
   // Update or create a submission
   const update = (uc) => new Promise((resolve, reject) => {
     // Link the fields to the user content, and stores their position
-    if (uc.openedAt) {
-      uc.openedAt = new Date(uc.openedAt);
+    for (let prop of [ "opened", "submitted", "requested" ]) {
+      prop += "at";
+      if (uc[prop]) uc[prop] = new Date(uc[prop]);
     }
 
-    if (uc.submittedAt) {
-      uc.submittedAt = new Date(uc.submittedAt);
-    }
-
-    if (!uc.uuid) {
+    if (!uc.uuid || uc.uuid === "new") {
       uc.uuid = uuid.v4();
     }
 
@@ -78,7 +75,7 @@ export default (config) => {
       const updateAllFields = fields.map(updateField);
       Promise.all(updateAllFields)
              .then(removeFields(remainingUuids))
-             .then(() => resolve())
+             .then(() => resolve(Object.assign({}, uc, { fields, _id: uc.uuid })))
              .catch(reject);
 
     }).catch(reject);
