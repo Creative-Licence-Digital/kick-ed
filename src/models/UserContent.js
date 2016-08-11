@@ -8,6 +8,10 @@ export default (sequelize, DataTypes) => {
     account:      DataTypes.STRING,
     lesson:       DataTypes.STRING,
     instructions: DataTypes.STRING,
+    deletedAt: { 
+      type: DataTypes.DATE,
+      allowNull: true
+    },
     requestedAt: {
       type: DataTypes.DATE,
       allowNull: true

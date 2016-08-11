@@ -10,7 +10,7 @@ export default (config) => {
   // List all instances for a certain query
   const list = (where) => {
     return models.UserContent.findAll({
-      where:   where,
+      where:   Object.assign({}, where, { deletedAt: null }),
       include: [ models.UserContentField ]
     });
   }
@@ -25,7 +25,7 @@ export default (config) => {
 
   // All submissions posted by an user
   const allContentForUser = (user) => models.UserContent.findAll({
-    where:   { user },
+    where:   { user, deletedAt: null },
     include: [ models.UserContentField ]
   });
 
@@ -46,10 +46,12 @@ export default (config) => {
     return models.UserContentField.upsert(field)
   }
 
+  const remove = (uuid) => models.UserContent.destroy({ where: { uuid } })
+
   // Update or create a submission
   const update = (uc) => new Promise((resolve, reject) => {
     // Link the fields to the user content, and stores their position
-    for (let prop of [ "opened", "submitted", "requested" ]) {
+    for (let prop of [ "opened", "submitted", "requested", "deleted" ]) {
       prop += "at";
       if (uc[prop]) uc[prop] = new Date(uc[prop]);
     }
@@ -69,7 +71,7 @@ export default (config) => {
       .filter(a => a);
 
     delete uc.fields;
-    const createUC        = models.UserContent.upsert(uc);
+    const createUC = models.UserContent.upsert(uc);
 
     createUC.then(() => {
       const updateAllFields = fields.map(updateField);
@@ -86,6 +88,7 @@ export default (config) => {
            getByUuid, 
            updateField, 
            update, 
+           remove,
            defaultInstance,
            allContentForUser };
 }
