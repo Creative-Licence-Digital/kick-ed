@@ -30,13 +30,13 @@ export default (config) => {
   });
 
   // Remove the fields which do not exist anymore
-  const removeFields = (existingFieldUuids) => models.UserContentField.destroy({
-    where: {
-      uuid: {
-        $notIn: existingFieldUuids
-      }
+  const removeUnusedFields = (submissionUuid, existingFieldUuids) => { 
+    let where = { UserContentUuid: submissionUuid };
+    if (existingFieldUuids.length > 0) {
+      where.uuid = { $notIn: existingFieldUuids };
     }
-  });
+    return models.UserContentField.destroy({ where });
+  }
 
   // Update a User Content Field in the DB (Or creates it if needed)
   const updateField = (field) => {
@@ -74,7 +74,7 @@ export default (config) => {
     createUC.then(() => {
       const updateAllFields = fields.map(updateField);
       Promise.all(updateAllFields)
-             .then(removeFields(remainingUuids))
+             .then(removeUnusedFields(uc.uuid, remainingUuids))
              .then(() => resolve(Object.assign({}, uc, { fields, _id: uc.uuid })))
              .catch(reject);
 
