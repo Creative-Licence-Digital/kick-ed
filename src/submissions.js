@@ -52,8 +52,12 @@ export default (config) => {
   const update = (uc) => new Promise((resolve, reject) => {
     // Link the fields to the user content, and stores their position
     for (let prop of [ "opened", "submitted", "requested", "deleted" ]) {
-      prop += "at";
-      if (uc[prop]) uc[prop] = new Date(uc[prop]);
+      prop += "At";
+      if (uc[prop]) { 
+        uc[prop] = new Date(uc[prop]);
+      } else {
+        uc[prop] = null;
+      }
     }
 
     if (!uc.uuid || uc.uuid === "new") {
