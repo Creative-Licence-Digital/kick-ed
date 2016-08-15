@@ -9,6 +9,10 @@ export default (sequelize, DataTypes) => {
     lesson:       DataTypes.STRING,
     title:        DataTypes.STRING,
     instructions: DataTypes.STRING,
+    lesson_template: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     isTemplate: {
       type: DataTypes.BOOLEAN,
       default: false

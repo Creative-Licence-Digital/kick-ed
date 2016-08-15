@@ -48,6 +48,9 @@ export default (config) => {
 
   const remove = (uuid) => models.UserContent.destroy({ where: { uuid } })
 
+  const bindToLessonTemplate = ({ uuid, lesson_template }) => 
+    models.UserContent.update({ lesson_template }, { where: { uuid }}) 
+
   // Update or create a submission
   const update = (uc) => new Promise((resolve, reject) => {
     // Link the fields to the user content, and stores their position
@@ -94,5 +97,6 @@ export default (config) => {
            update, 
            remove,
            defaultInstance,
-           allContentForUser };
+           allContentForUser,
+           bindToLessonTemplate };
 }
