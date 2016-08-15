@@ -48,8 +48,17 @@ export default (config) => {
 
   const remove = (uuid) => models.UserContent.destroy({ where: { uuid } })
 
-  const bindToLessonTemplate = ({ uuid, lesson_template }) => 
-    models.UserContent.update({ lesson_template }, { where: { uuid }}) 
+  const bindToLessonTemplate = ({ uuid, lesson_template }) => {
+    return models.UserContent.update({ lesson_template }, { where: { uuid }}) 
+  }
+
+  const updateBindings = (updates) => {
+    let promises = updates.map((update) => {
+      return models.UserContentField.update({ binding: update[1] }, { where: { uuid: update[0] }});
+    });
+    return Promise.all(promises);
+  };
+
 
   // Update or create a submission
   const update = (uc) => new Promise((resolve, reject) => {
@@ -98,5 +107,6 @@ export default (config) => {
            remove,
            defaultInstance,
            allContentForUser,
-           bindToLessonTemplate };
+           bindToLessonTemplate,
+           updateBindings };
 }

@@ -7,7 +7,11 @@ export default (sequelize, DataTypes) => {
     label:    DataTypes.STRING,
     type:     DataTypes.STRING,
     value:    DataTypes.STRING,
-    position: DataTypes.INTEGER
+    position: DataTypes.INTEGER,
+    binding:  {
+      type: DataTypes.STRING,
+      allowNull: true
+    }
   });
   return UserContentField;
 }
