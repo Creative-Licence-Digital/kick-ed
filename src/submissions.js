@@ -53,9 +53,7 @@ export default (config) => {
   }
 
   const updateBindings = (updates) => {
-    let promises = updates.map((update) => {
-      return models.UserContentField.update({ binding: update[1] }, { where: { uuid: update[0] }});
-    });
+    let promises = updates.map(updateField)
     return Promise.all(promises);
   };
 
