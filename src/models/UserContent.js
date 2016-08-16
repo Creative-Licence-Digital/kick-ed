@@ -9,6 +9,9 @@ export default (sequelize, DataTypes) => {
     lesson:       DataTypes.STRING,
     title:        DataTypes.STRING,
     instructions: DataTypes.STRING,
+    template:     DataTypes.STRING,
+    slides:       DataTypes.TEXT,
+
     lesson_template: {
       type: DataTypes.STRING,
       allowNull: true
