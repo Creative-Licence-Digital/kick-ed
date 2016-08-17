@@ -49,8 +49,8 @@ export default (config) => {
 
   const remove = (uuid) => models.UserContent.destroy({ where: { uuid } })
 
-  const bindToLessonTemplate = ({ uuid, lesson_template }) => {
-    return models.UserContent.update({ lesson_template }, { where: { uuid }}) 
+  const bindToLessonTemplate = ({ uuid, lesson_template, slides }) => {
+    return models.UserContent.update({ slides, lesson_template }, { where: { uuid }}) 
   }
 
   const updateBindings = (updates) => {
