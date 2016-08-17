@@ -3,6 +3,12 @@ import Submissions from './submissions'
 export default (app, config) => {
   const submissions = Submissions(config);
 
+  const transform = (uc) => {
+    let d = Object.assign({}, uc.toJSON())
+    delete d.slides
+    return d;
+  }
+
   app.post("/api/sync", (req, res, next) => {
     const user = req.body["user_data"].userData._id.toString();
     const ucs  = (req.body["user_content"] || []).map(uc => {
@@ -10,10 +16,10 @@ export default (app, config) => {
       return uc;
     });
 
-    Promise.all(ucs.map(submissions.update))
+    Promise.all(ucs.map(submissions.updateAndGenerateSlides))
            .then(() => {
               submissions.allContentForUser(user).then((ucs) => {
-                req.body.user_content = ucs.map(uc => uc.toJSON());
+                req.body.user_content = ucs.map(transform);
                 next();
               });
             })

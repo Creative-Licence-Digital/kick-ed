@@ -1,4 +1,5 @@
 import Models from './models'
+import { generate } from './slides'
 import uuid   from 'uuid'
 
 export default (config) => {
@@ -58,8 +59,21 @@ export default (config) => {
   };
 
 
+  const generateSlide = (uc) =>  new Promise((resolve, reject) => {
+    getByUuid(uc.uuid).then((ucWithSlides) => {
+      const newSlides = generate(ucWithSlides.slides, ucWithSlides.UserContentFields);
+      return ucWithSlides.update({ slides: JSON.stringify(newSlides) });
+    }).catch((e) => {
+      console.error("ERROR", e); 
+      reject(e);
+    }); 
+  });
+
+  const updateAndGenerateSlides = (uc) => update(uc).then(generateSlide(uc))
+
   // Update or create a submission
   const update = (uc) => new Promise((resolve, reject) => {
+
     // Link the fields to the user content, and stores their position
     for (let prop of [ "opened", "submitted", "requested", "deleted" ]) {
       prop += "At";
@@ -102,6 +116,7 @@ export default (config) => {
            getByUuid, 
            updateField, 
            update, 
+           updateAndGenerateSlides,
            remove,
            defaultInstance,
            allContentForUser,
