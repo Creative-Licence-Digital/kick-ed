@@ -2,8 +2,6 @@
 const applyBindingValueSlide = (slide, bindings, value) => {
   let newSlide = Object.assign({}, slide);
 
-  //console.error("SLIDE", newSlide, "BINDING", binding, "VALUE", value);
-
   if (bindings.length == 0) {
     return newSlide;
 
@@ -17,9 +15,10 @@ const applyBindingValueSlide = (slide, bindings, value) => {
       if (!newSlide[actualKey]) {
         newSlide[actualKey] = [];
       }
-      newSlide[actualKey][indexKey] = (bindings.length === 1) ? value : applyBindingValueSlide(newSlide[actualKey][indexKey], newBindings, value);
+      const val = (bindings.length === 0) ? value : applyBindingValueSlide(newSlide[actualKey][indexKey], newBindings, value);
+      newSlide[actualKey][indexKey] = val;
     } else {
-      newSlide[key]  = (bindings.length === 1) ? value : applyBindingValueSlide(newSlide[key], newBindings, value);
+      newSlide[key]  = (bindings.length === 0) ? value : applyBindingValueSlide(newSlide[key], newBindings, value);
     }
     return newSlide;
 
@@ -35,6 +34,8 @@ const applyBindingValue = (slides, binding, value) => {
   const slide     = slides[index];
   
   let   newSlides = slides;
+  parts.shift()
+
   newSlides[index].data = applyBindingValueSlide(slide.data, parts, value);
   return newSlides;
 }
