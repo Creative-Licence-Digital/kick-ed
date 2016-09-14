@@ -90,7 +90,7 @@ export default (config) => {
 
     const fields = (uc.fields || []).map((f, i) => {
       f.UserContentUuid = uc.uuid; 
-      f.position = i + 1;
+      f.position = f.position ? parseInt(f.position, 10) : i + 1;
       return f;
     });
 
