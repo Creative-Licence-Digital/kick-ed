@@ -4,8 +4,7 @@
   "description": "Content Crowdsourcing for the Ed Platform ",
   "main": "lib/index.js",
   "scripts": {
-    "build": "npm install; babel src -d lib",
-    "postinstall": "npm run build",
+    "build": "babel src -d lib",
     "start": "node ./lib/index.js"
   },
   "dependencies": {
