@@ -14,6 +14,9 @@
     "mysql": "^2.11.1",
     "sequelize": "^3.23.6",
     "uuid": "^2.0.2",
+    "node-bin": "^6.2.2"
+  },
+  "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-plugin-transform-flow-strip-types": "^6.8.0",
     "babel-polyfill": "^6.9.1",
