@@ -20,7 +20,11 @@ export default (app, config) => {
            .then(() => {
               submissions.allContentForUser(user).then((ucs) => {
                 req.body.user_content = ucs.map(transform);
-                next();
+
+                submissions.allTemplates.then((ts) => {
+                  req.body.uctemplates = ts.map(function(t) { return Object.assign({}, t.toJSON()); });
+                  next();
+                });
               });
             })
            .catch((e) => console.error(e));

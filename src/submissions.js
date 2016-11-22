@@ -1,6 +1,6 @@
-import Models from './models'
+import Models       from './models'
 import { generate } from './slides'
-import uuid   from 'uuid'
+import uuid         from 'uuid'
 
 export default (config) => {
   const models  = Models(config);
@@ -15,6 +15,8 @@ export default (config) => {
       include: [ models.UserContentField ]
     });
   }
+
+  const allTemplates = list({ isTemplate: true });
 
   // Get a submission by uuid
   const getByUuid = (uuid) => {
@@ -120,6 +122,7 @@ export default (config) => {
            remove,
            defaultInstance,
            allContentForUser,
+           allTemplates,
            bindToLessonTemplate,
            updateBindings };
 }
