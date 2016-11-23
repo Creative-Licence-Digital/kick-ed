@@ -36,7 +36,10 @@ const applyBindingValue = (slides, binding, value) => {
   let   newSlides = slides;
   parts.shift()
 
-  newSlides[index].data = applyBindingValueSlide(slide.data, parts, value);
+  if (slide && slide.data && newSlides[index] && newSlides[index].data) {
+    newSlides[index].data = applyBindingValueSlide(slide.data, parts, value);
+  }
+
   return newSlides;
 }
 
